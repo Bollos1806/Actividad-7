@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Actividad7" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <style name="Theme.Actividad7" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-    <style name="Theme.Actividad7" parent="Base.Theme.Actividad7" />
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/buttonTextColor</item>
+
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/buttonTextColor</item>
+
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorSurface">@color/backgroundColor</item>
+        <item name="colorOnBackground">@color/textColorPrimary</item>
+    </style>
 </resources>
