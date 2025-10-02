@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Abrir Galería (seleccionar imagen)"
-            android:backgroundTint="@color/color1"
+            android:backgroundTint="@color/color3"
             android:textColor="@color/buttonTextColor" />
 
         <ImageView
