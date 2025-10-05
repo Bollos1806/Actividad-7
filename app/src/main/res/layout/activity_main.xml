@@ -60,7 +60,6 @@
             android:backgroundTint="@color/color5"
             android:textColor="@color/buttonTextColor" />
 
-
         <Button
             android:id="@+id/btnGallery"
             android:layout_width="match_parent"
@@ -69,7 +68,6 @@
             android:text="Abrir Galería (seleccionar imagen)"
             android:backgroundTint="@color/color1"
             android:textColor="@color/buttonTextColor" />
-
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
