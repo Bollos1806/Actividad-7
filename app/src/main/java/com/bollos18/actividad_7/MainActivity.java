@@ -1,6 +1,5 @@
 package com.bollos18.actividad_7;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,19 +13,30 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imgPreview;
 
+    private RecyclerView recyclerProducts;
+    private ProductAdapter productAdapter;
+    private List<Product> productList;
+
     // Launcher para cámara (miniatura)
     private ActivityResultLauncher<Intent> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Bundle extras = result.getData().getExtras();
                     if (extras != null) {
                         Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        if (imageBitmap != null) imgPreview.setImageBitmap(imageBitmap);
+                        if (imageBitmap != null) {
+                            imgPreview.setImageBitmap(imageBitmap);
+                        }
                     }
                 } else {
                     Toast.makeText(this, "Fotografía cancelada", Toast.LENGTH_SHORT).show();
@@ -48,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Botón para ir a la pantalla de productos
+        Button btnProductos = findViewById(R.id.btnProductos);
+        btnProductos.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+            startActivity(intent);
+        });
+
         imgPreview = findViewById(R.id.imgPreview);
 
         Button btnDial = findViewById(R.id.btnDial);
@@ -67,9 +84,55 @@ public class MainActivity extends AppCompatActivity {
         ));
         btnCamera.setOnClickListener(v -> takePicture());
         btnGallery.setOnClickListener(v -> pickFromGallery());
+
+        // Configuración del RecyclerView de productos
+        recyclerProducts = findViewById(R.id.recyclerProducts);
+        setupProducts();
+        setupRecyclerView();
     }
 
-    /* ----------  Acciones ---------- */
+    /* ---------- Métodos de configuración del RecyclerView ---------- */
+    private void setupProducts() {
+        productList = new ArrayList<>();
+        productList.add(new Product(
+                "🎧 Auriculares Premium",
+                "Sonido de alta calidad con cancelación de ruido",
+                "",
+                "https://www.amazon.com/headphones"
+        ));
+        productList.add(new Product(
+                "📱 Smartphone",
+                "Última tecnología en telefonía móvil",
+                "",
+                "https://www.samsung.com/smartphones"
+        ));
+        productList.add(new Product(
+                "💻 Laptop Gaming",
+                "Para gamers profesionales y entusiastas",
+                "",
+                "https://www.asus.com/laptops"
+        ));
+        productList.add(new Product(
+                "⌚ Smartwatch",
+                "Fitness, salud y conectividad en tu muñeca",
+                "",
+                "https://www.apple.com/watch"
+        ));
+        productList.add(new Product(
+                "📷 Cámara Digital",
+                "Fotografía profesional para capturar momentos",
+                "",
+                "https://www.canon.com/cameras"
+        ));
+    }
+
+    private void setupRecyclerView() {
+        productAdapter = new ProductAdapter(this, productList);
+        recyclerProducts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerProducts.setAdapter(productAdapter);
+    }
+
+    /* ---------- Funciones de Intents ---------- */
 
     private void openDialer(String number) {
         Uri uri = Uri.parse("tel:" + number);
@@ -84,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     private void openMapQuery(String q) {
         Uri geo = Uri.parse("geo:0,0?q=" + Uri.encode(q));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, geo);
-        // mapIntent.setPackage("com.google.android.apps.maps"); // opcional
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         } else {

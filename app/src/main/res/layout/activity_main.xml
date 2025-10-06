@@ -68,6 +68,16 @@
             android:text="Abrir Galería (seleccionar imagen)"
             android:backgroundTint="@color/color1"
             android:textColor="@color/buttonTextColor" />
+
+        <Button
+            android:id="@+id/btnProductos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🛍️ Ver Productos"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/color5"
+            android:textColor="@color/buttonTextColor" />
+
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
@@ -77,5 +87,13 @@
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_menu_gallery"
             android:contentDescription="Vista previa" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 </ScrollView>
+
